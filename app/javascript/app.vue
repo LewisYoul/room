@@ -7,7 +7,7 @@
     <div class="chat-wrapper" v-else>
       <div id="conversation" class="conversation-wrapper">
         <div v-for="message in messages" :key="message.body" :align="message.sent_by === name ? 'right' : 'left'">
-          <div class="message-wrapper" align="left">
+          <div :class="`message-wrapper--${message.sent_by === name ? 'me' : 'other'}`" align="left">
             <!-- <div><strong>{{ message.sent_by }}</strong></div> -->
             <div v-if="!(message.sent_by === name)"><strong>{{ message.sent_by }}</strong></div>
             <div style="margin-top: 5px;">{{ message.body }}</div>
@@ -120,7 +120,14 @@ export default {
   background-color: lightblue;
 }
 
-.message-wrapper {
+.message-wrapper--me {
+  display: inline-block;
+  margin: 10px 10px 0px 10px;
+  background-color: beige;
+  padding: 10px;
+}
+
+.message-wrapper--other {
   display: inline-block;
   margin: 10px 10px 0px 10px;
   background-color: aliceblue;
