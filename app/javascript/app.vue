@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <div v-if="!name" id="name-input">
       <h1>ROOM</h1>
-      <input @keyup="updateName($event)" placeholder="Enter your name">
+      <input id="name" @keyup="updateName($event)" placeholder="Enter your name">
     </div>
     <div class="chat-wrapper" v-else>
       <div id="conversation" class="conversation-wrapper">
@@ -80,14 +80,23 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -50px;
-  margin-left: -100px;
-  width: 200px;
+  margin-top: -150px;
+  margin-left: -150px;
+  width: 300px;
+  height: 300px;
   text-align: center;
 }
 
+#name {
+  font-size: 20px;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
 .chat-wrapper {
-  width: 30%;
+  width: 25%;
   height: 60%;
   display: flex;
   flex-direction: column;
@@ -96,7 +105,6 @@ export default {
 
 .conversation-wrapper {
   flex: 5;
-  border-radius: 16px;
   background-color: antiquewhite;
   max-height: 75%;
   overflow-y: scroll;
@@ -108,18 +116,14 @@ export default {
   padding: 6px;
   flex: 1;
   border: none;
-  border-radius: 10px;
   margin-top: 10px;
   background-color: lightblue;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .message-wrapper {
   display: inline-block;
   margin: 10px 10px 0px 10px;
-  border-radius: 10px;
   background-color: aliceblue;
   padding: 10px;
-  font-family: 'Courier New', Courier, monospace;
 }
 </style>
