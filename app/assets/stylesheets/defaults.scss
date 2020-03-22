@@ -3,7 +3,11 @@ html, body {
   margin: 0;
 }
 
-textarea:focus {
-  outline: none;
+textarea {
   resize: none;
+
+  &:focus {
+    outline: none;
+    resize: none;
+  }
 }

@@ -7,7 +7,10 @@
     <div class="chat-wrapper" v-else>
       <div class="conversation-wrapper">
         <div v-for="message in messages" :key="message.body">
-          <p><strong>{{ message.sent_by }}: </strong>{{ message.body }}</p>
+          <div class="message-wrapper">
+            <div><strong>{{ message.sent_by }}</strong></div>
+            <div style="margin-top: 5px;">{{ message.body }}</div>
+          </div>
         </div>
       </div>
         <textarea class="input" @keyup="sendMessage($event)" placeholder="Type something..."></textarea>
@@ -47,7 +50,9 @@ export default {
     },
 
     sendMessage(event) {
-      if (event.keyCode == 13) {
+      const message = event.target.value
+
+      if (event.keyCode == 13 && message.length > 0) {
         if (this.name) {
           this.chatChannel.send({
             room: "home",
@@ -84,17 +89,27 @@ export default {
 }
 
 .conversation-wrapper {
-  padding: 6px;
   flex: 4;
-  border: 2px solid grey;
-  border-radius: 10px;
+  border-radius: 16px;
+  background-color: antiquewhite;
 }
 
 .input {
   padding: 6px;
   flex: 1;
-  border: 2px solid grey;
+  border: none;
   border-radius: 10px;
   margin-top: 10px;
+  background-color: lightblue;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.message-wrapper {
+  display: inline-block;
+  margin: 10px 10px 0px 10px;
+  border-radius: 10px;
+  background-color: aliceblue;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
 }
 </style>
