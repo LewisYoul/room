@@ -6,9 +6,10 @@
     </div>
     <div class="chat-wrapper" v-else>
       <div class="conversation-wrapper">
-        <div v-for="message in messages" :key="message.body">
-          <div class="message-wrapper">
-            <div><strong>{{ message.sent_by }}</strong></div>
+        <div v-for="message in messages" :key="message.body" :align="message.sent_by === name ? 'right' : 'left'">
+          <div class="message-wrapper" align="left">
+            <!-- <div><strong>{{ message.sent_by }}</strong></div> -->
+            <div v-if="!(message.sent_by === name)"><strong>{{ message.sent_by }}</strong></div>
             <div style="margin-top: 5px;">{{ message.body }}</div>
           </div>
         </div>
@@ -95,6 +96,7 @@ export default {
 }
 
 .input {
+  font-size: 16px;
   padding: 6px;
   flex: 1;
   border: none;
