@@ -5,7 +5,7 @@
       <input @keyup="updateName($event)" placeholder="Enter your name">
     </div>
     <div class="chat-wrapper" v-else>
-      <div class="conversation-wrapper">
+      <div id="conversation" class="conversation-wrapper">
         <div v-for="message in messages" :key="message.body" :align="message.sent_by === name ? 'right' : 'left'">
           <div class="message-wrapper" align="left">
             <!-- <div><strong>{{ message.sent_by }}</strong></div> -->
@@ -36,6 +36,11 @@ export default {
       { channel: 'ApplicationCable::ChatChannel', room: 'home' }, {
         received: function(data) { 
           self.messages.push(data)
+
+          setTimeout(() => {
+            var objDiv = document.getElementById("conversation");
+            objDiv.scrollTop = objDiv.scrollHeight;
+          }, 200)
         } 
       }
     )
@@ -90,9 +95,12 @@ export default {
 }
 
 .conversation-wrapper {
-  flex: 4;
+  flex: 5;
   border-radius: 16px;
   background-color: antiquewhite;
+  max-height: 75%;
+  overflow-y: scroll;
+  padding-bottom: 10px;
 }
 
 .input {
