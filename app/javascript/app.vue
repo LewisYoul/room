@@ -21,7 +21,6 @@ export default {
   },
 
   created() {
-    console.log('fds')
     const self = this;
     this.chatChannel = App.cable.subscriptions.create(
       { channel: 'ApplicationCable::ChatChannel', room: 'home' }, {
