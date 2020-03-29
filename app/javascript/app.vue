@@ -6,7 +6,7 @@
     </div>
     <div class="chat-wrapper" v-else>
       <div id="conversation" class="conversation-wrapper">
-        <div v-for="message in messages" :key="message.body" :align="message.sent_by === name ? 'right' : 'left'">
+        <div v-for="message in messagez" :key="message.id" :align="message.sent_by === name ? 'right' : 'left'">
           <div :class="`message-wrapper--${message.sent_by === name ? 'me' : 'other'}`" align="left">
             <!-- <div><strong>{{ message.sent_by }}</strong></div> -->
             <div v-if="!(message.sent_by === name)"><strong>{{ message.sent_by }}</strong></div>
@@ -21,11 +21,16 @@
 
 <script>
 export default {
+
+  props: {
+    messages: { type: Array, required: true }
+  },
+
   data: function () {
     return {
       chatChannel: null,
       name: null,
-      messages: []
+      messagez: JSON.parse(JSON.stringify(this.messages))
     }
   },
 
@@ -35,7 +40,7 @@ export default {
     this.chatChannel = App.cable.subscriptions.create(
       { channel: 'ApplicationCable::ChatChannel', room: 'home' }, {
         received: function(data) { 
-          self.messages.push(data)
+          self.messagez.push(data)
 
           setTimeout(() => {
             var objDiv = document.getElementById("conversation");

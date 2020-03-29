@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @space = Space.first
+    @messages = Space.first.messages
   end
 end

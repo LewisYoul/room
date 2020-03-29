@@ -7,9 +7,9 @@ module ApplicationCable
 
     def receive(data)
       space = Space.find_by(name: params[:room])
-      space.messages.create!(sent_by: data['sent_by'], body: data['body'])
+      message = space.messages.create!(sent_by: data['sent_by'], body: data['body'])
 
-      ActionCable.server.broadcast("chat_#{params[:room]}", data)
+      ActionCable.server.broadcast("chat_#{params[:room]}", message)
     end
   end
 end
