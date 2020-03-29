@@ -1,10 +1,11 @@
 <template>
-  <div style="height: 100%;">
-    <div v-if="!name" id="name-input">
-      <h1>ROOM</h1>
+  <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+    <div v-show="!name" id="name-input">
+      <h1>Chatter</h1>
       <input id="name" @keyup="updateName($event)" placeholder="Enter your name">
     </div>
-    <div class="chat-wrapper" v-else>
+    <div class="chat-wrapper" v-show="name">
+      <h1 style="text-align: center;">Chatter</h1>
       <div id="conversation" class="conversation-wrapper">
         <div v-for="message in messagez" :key="message.id" :align="message.sent_by === name ? 'right' : 'left'">
           <div :class="`message-wrapper--${message.sent_by === name ? 'me' : 'other'}`" align="left">
@@ -14,7 +15,7 @@
           </div>
         </div>
       </div>
-        <textarea class="input" @keyup="sendMessage($event)" placeholder="Type something..."></textarea>
+        <textarea class="input" id="message-input" @keyup="sendMessage($event)" placeholder="Type something..."></textarea>
     </div>
   </div>
 </template>
@@ -56,7 +57,14 @@ export default {
       const name = event.target.value
 
       if (event.keyCode == 13 && name.length > 0) {
+
         this.name = event.target.value
+
+        setTimeout(() => {
+          document.getElementById("message-input").focus();
+          var objDiv = document.getElementById("conversation");
+          objDiv.scrollTop = objDiv.scrollHeight;
+        }, 50)
       }
     },
 
@@ -101,7 +109,7 @@ export default {
 }
 
 .chat-wrapper {
-  width: 25%;
+  width: 400px;
   height: 60%;
   display: flex;
   flex-direction: column;
@@ -128,7 +136,7 @@ export default {
 .message-wrapper--me {
   display: inline-block;
   margin: 10px 10px 0px 10px;
-  background-color: beige;
+  background-color: floralwhite;
   padding: 10px;
 }
 
